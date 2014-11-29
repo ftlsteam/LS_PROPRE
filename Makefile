@@ -1,5 +1,5 @@
 all:
-	gcc -Wall -Wextra -Werror create_node.c ft_arguments.c insert_data.c main.c print_it.c print_lsl.c print_lsl1.c print_lsl2.c print_lsl3.c read.c read_stat.c recursive_v2.c set_up.c -L libft/ -lft -I includes/ -o ft_ls
+	gcc -Wall -Wextra -Werror create_node.c ft_arguments.c insert_data.c main.c print_it.c print_lsl.c print_lsl1.c print_lsl2.c print_lsl3.c read.c read_stat.c recursive_v2.c set_up.c recursive_time.c recursive_stat.c -L libft/ -lft -I includes/ -o ft_ls
 
 easy:
 	make -C libft/ fclean
