@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:15:25 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/27 18:02:18 by avallete         ###   ########.fr       */
+/*   Updated: 2014/11/29 17:22:13 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void            ls_read(t_btree **tree, char *pathname)
 	rep = opendir(pathname);
 	if (rep != NULL)
 	{
-		pathname = ft_strjoin(pathname, "/");
+		if (!(check_slash(pathname)))
+			pathname = ft_strjoin(pathname, "/");
 		while((file = readdir(rep)) != NULL)
 		{
 			pathname = ft_strjoin(pathname, file->d_name);
@@ -47,7 +48,8 @@ void			ls_read_time(t_time **tree, char *pathname)
 		rep = opendir(pathname);
 		if (rep != NULL)
 		{
-			pathname = ft_strjoin(pathname, "/");
+			if (!(check_slash(pathname)))
+				pathname = ft_strjoin(pathname, "/");
 			while((file = readdir(rep)) != NULL)
 			{
 				filepathname = ft_strjoin(pathname, file->d_name);
@@ -78,7 +80,8 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 	{
 		if ((stats_struct = (struct stat*)malloc(sizeof(struct stat))))
 		{
-			pathname = ft_strjoin(pathname, "/");
+			if (!(check_slash(pathname)))
+				pathname = ft_strjoin(pathname, "/");
 			while ((file = readdir(rep)))
 			{
 				statsfile.filetype = file->d_type;

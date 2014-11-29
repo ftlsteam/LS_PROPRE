@@ -6,11 +6,26 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/24 19:01:00 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/29 15:11:06 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/11/29 17:29:12 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+int				check_slash(char *str)
+{
+	size_t i;
+
+	if (str)
+	{
+		i = ft_strlen(str) - 1;
+		if (str[i] == '/')
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
+}
 
 void			ls_grep_dir(char *argv, t_btree **tree, char *options)
 {
@@ -20,9 +35,12 @@ void			ls_grep_dir(char *argv, t_btree **tree, char *options)
 	if (*tree)
 	{
 		root = *tree;
-		pathname = ft_strjoin(argv, "/");
+		if (!(check_slash(argv)))
+			pathname = ft_strjoin(argv, "/");
+		else
+			pathname = ft_strdup(argv);
 		pathname = ft_strjoin(pathname, root->content);
-		
+
 		if (!(options[3]))
 		{
 			if (root->left)
@@ -53,7 +71,8 @@ void            ls_read_rec(char *pathname, char *choice)
 	ft_putchar('\n');
 	ft_putstr(pathname);
 	ft_putendl(":");
-	pathname = ft_strjoin(pathname, "/");
+	if (!(check_slash(pathname)))
+		pathname = ft_strjoin(pathname, "/");
 	if((rep = opendir(pathname)) != NULL)
 	{
 		show_dir(pathname, choice);

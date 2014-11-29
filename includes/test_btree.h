@@ -58,6 +58,7 @@ void		print_error(char *filename);
 */
 int			ft_arguments(int argc, char const **argv, char *choice,void (*f)(char *c, char e));
 void		ft_arg(char *c, char e);
+int			check_slash(char *str);
 int			ft_choice(int n);
 void		set_up(char *argv, char *choice);
 void		ls_grep_dir(char *argv, t_btree **tree, char *options);
