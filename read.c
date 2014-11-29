@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:15:25 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/29 17:22:13 by avallete         ###   ########.fr       */
+/*   Updated: 2014/11/29 18:51:41 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void            ls_read(t_btree **tree, char *pathname)
 			btree_insert_data(tree, file->d_name, file->d_type);
 		}
 		free(pathname);
+		closedir(rep);
 	}
 	else
 		print_error(pathname);
@@ -59,6 +60,7 @@ void			ls_read_time(t_time **tree, char *pathname)
 				free(filepathname);
 				filepathname = NULL;
 			}
+			closedir(rep);
 		}
 		else
 			print_error(pathname);
@@ -85,7 +87,7 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 			while ((file = readdir(rep)))
 			{
 				statsfile.filetype = file->d_type;
-				statsfile.filename = file->d_name;
+				statsfile.filename = ft_strdup(file->d_name);
 				filepathname = ft_strjoin(pathname, file->d_name);
 				if (((stats = lstat(filepathname, stats_struct))) != -1)
 				{
@@ -99,6 +101,7 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 				free(filepathname);
 				filepathname = NULL;
 			}
+			closedir(rep);
 			free(stats_struct);
 		}
 	}

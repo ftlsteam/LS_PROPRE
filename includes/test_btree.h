@@ -50,7 +50,7 @@ typedef struct	  s_time
 */
 void		btree_print(t_btree *root, char *choice);
 void		btree_print_time(t_time *root, char *choice);
-void		ltree_print(t_lltree *root, size_t *infos, char *choice);
+void		ltree_print(t_lltree *root, size_t *infos, char *choice, char *pathname);
 void		ft_printls(char *filename, char hide);
 void		print_error(char *filename);
 /*
@@ -64,6 +64,7 @@ void		set_up(char *argv, char *choice);
 void		ls_grep_dir(char *argv, t_btree **tree, char *options);
 void		ls_grep_dir_time(char *argv, t_time **tree, char *options);
 void		ls_grep_dir_stat(char *argv, t_lltree **tree, char *options);
+void		temp(t_btree *root, char *pathname, char *options);
 /*
 **Binary_tree---------
 */
@@ -78,11 +79,11 @@ void		btree_insert_data_alpha(t_time **tree, char *data, unsigned char type, uns
 void		ls_read(t_btree **tree, char *pathname);
 void		ls_read_time(t_time **tree, char *pathname);
 void		ls_read_rec(char *pathname, char *choice);
-void		ls_read_rec_time(char *pathname, char *choice);
-void		ls_read_rec_stat(char *pathname, char *choice);
+//void		ls_read_rec_time(char *pathname, char *choice);
+//void		ls_read_rec_stat(char *pathname, char *choice);
 void		show_dir(char *pathname, char *choice);
-void		show_dir_time(char *pathname, char *choice);
-void		show_dir_stat(char *pathname, char *choice);
+//void		show_dir_time(char *pathname, char *choice);
+//void		show_dir_stat(char *pathname, char *choice);
 /*
 **Free---------
 */

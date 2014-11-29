@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/21 14:20:33 by avallete          #+#    #+#             */
-/*   Updated: 2014/11/28 17:26:50 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/11/29 19:15:44 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,13 @@
    }
    */
 
-void print_lsl(t_llstat *stats, size_t *infos, char option)
+void print_lsl(t_llstat *stats, size_t *infos, char option, char *pathname)
 {
+	char *file_pathname;
+
+	file_pathname = NULL;
+	if (!(check_slash(pathname)))
+		file_pathname= ft_strjoin(pathname, "/");
 	if (infos[5])
 	{
 		print_total(infos[5]);
@@ -41,8 +46,11 @@ void print_lsl(t_llstat *stats, size_t *infos, char option)
 		print_size(stats->size, infos[3]);
 		print_time(stats->date, infos[4]);
 		ft_putstr(stats->filename);
+		file_pathname = ft_strjoin(file_pathname, stats->filename);
 		if (stats->filetype == 10)
-			print_linkpath(stats->filename, stats->size);
+			print_linkpath(file_pathname, stats->size);
 		ft_putchar('\n');
+		if (file_pathname)
+			free(file_pathname);
 	}
 }

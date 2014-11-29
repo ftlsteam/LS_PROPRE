@@ -39,5 +39,5 @@ void			print_group(char *groupname, size_t maxcol);
 void			print_size(off_t size, size_t maxcol);
 void			print_time(time_t timefile, size_t oldtime);
 void			print_linkpath(char *filename, off_t size);
-void 			print_lsl(t_llstat *stats, size_t *infos, char option);
+void 			print_lsl(t_llstat *stats, size_t *infos, char option, char *pathname);
 #endif

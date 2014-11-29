@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 16:48:17 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/29 15:48:00 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/11/29 19:01:59 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,14 @@ void			ls_grep_dir_stat(char *argv, t_lltree **tree, char *options)
 			if (root->left)
 				ls_grep_dir_stat(argv, &root->left, options);
 			if (root->stats.filetype == 4 && ft_strcmp("..", root->stats.filename) != 0 && ft_strcmp(".", root->stats.filename) != 0)
-				ls_read_rec_stat(pathname, options);
-			if (root->right)
+			{
+				
+				ft_putchar('\n');
+				ft_putstr(pathname);
+				ft_putendl(":");
+				set_up(pathname, options);
+			}
+				if (root->right)
 				ls_grep_dir_stat(argv, &root->right, options);
 		}
 		else
@@ -38,13 +44,13 @@ void			ls_grep_dir_stat(char *argv, t_lltree **tree, char *options)
 			if (root->right)
 				ls_grep_dir_stat(argv, &root->right, options);
 			if (root->stats.filetype == 4 && ft_strcmp("..", root->stats.filename) != 0 && ft_strcmp(".", root->stats.filename) != 0)
-				ls_read_rec_stat(pathname, options);
+				set_up(pathname, options);
 			if (root->left)
 				ls_grep_dir_stat(argv, &root->left, options);
 		}
 	}
 }
-
+/*
 void            ls_read_rec_stat(char *pathname, char *choice)
 {
     struct dirent *file;
@@ -117,3 +123,4 @@ void          show_dir_stat(char *pathname, char *choice)
     else
         print_error(pathname);
 }
+*/

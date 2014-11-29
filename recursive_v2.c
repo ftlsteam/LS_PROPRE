@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/24 19:01:00 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/29 17:29:12 by avallete         ###   ########.fr       */
+/*   Updated: 2014/11/29 19:06:50 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void			ls_grep_dir(char *argv, t_btree **tree, char *options)
 			if (root->left)
 				ls_grep_dir(argv, &root->left, options);
 			if (root->file_type == 4 && ft_strcmp("..", root->content) != 0 && ft_strcmp(".", root->content) != 0)
-				ls_read_rec(pathname, options);
+				set_up(pathname, options);
 			if (root->right)
 				ls_grep_dir(argv, &root->right, options);
 		}
@@ -55,14 +55,14 @@ void			ls_grep_dir(char *argv, t_btree **tree, char *options)
 			if (root->right)
 				ls_grep_dir(argv, &root->right, options);
 			if (root->file_type == 4 && ft_strcmp("..", root->content) != 0)
-				ls_read_rec(pathname, options);
+				set_up(pathname, options);
 			if (root->left)
 				ls_grep_dir(argv, &root->left, options);
 		}
 		free(pathname);
 	}
 }
-
+/*
 void            ls_read_rec(char *pathname, char *choice)
 {
 	struct dirent *file;
@@ -85,6 +85,7 @@ void            ls_read_rec(char *pathname, char *choice)
 	}
 	else
 		print_error(pathname);
+	
 	free(pathname);
 }
 
@@ -103,3 +104,4 @@ void		show_dir(char *pathname, char *choice)
 		closedir(rep);
 	}
 }
+*/

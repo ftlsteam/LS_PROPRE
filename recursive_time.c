@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 16:51:32 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/29 15:11:35 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/11/29 19:04:22 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,13 @@ void            ls_grep_dir_time(char *argv, t_time **tree, char *options)
 			if (root->left)
 				ls_grep_dir_time(argv, &root->left, options);
 			if (root->file_type == 4 && ft_strcmp("..", root->content) != 0 && ft_strcmp(".", root->content) != 0)
-				ls_read_rec_time(pathname, options);
-			if (root->right)
+			{
+				ft_putchar('\n');
+				ft_putstr(pathname);
+				ft_putendl(":");
+				set_up(pathname, options);
+			}
+				if (root->right)
 				ls_grep_dir_time(argv, &root->right, options);
 		}
 		else
@@ -38,13 +43,13 @@ void            ls_grep_dir_time(char *argv, t_time **tree, char *options)
 			if (root->right)
 				ls_grep_dir_time(argv, &root->right, options);
 			if (root->file_type == 4 && ft_strcmp("..", root->content) != 0 && ft_strcmp(".", root->content) != 0)
-				ls_read_rec_time(pathname, options);
+				set_up(pathname, options);
 			if (root->left)
 				ls_grep_dir_time(argv, &root->left, options);
 		}
 	}
 }
-
+/*
 void            ls_read_rec_time(char *pathname, char *choice)
 {
     struct dirent *file;
@@ -60,7 +65,8 @@ void            ls_read_rec_time(char *pathname, char *choice)
 		while ((file = readdir(rep)) != NULL )
         {
             if (file->d_type == 4 && ft_strcmp(".", file->d_name) != 0 && ft_strcmp("..", file->d_name) != 0)
-                ls_read_rec_time(ft_strjoin(pathname, file->d_name), choice);
+			  set_up(ft_strjoin(pathname, file->d_name), choice);
+//			btree_insert_data_time
 		}
 		closedir(rep);
     }
@@ -98,3 +104,4 @@ void        show_dir_time(char *pathname, char *choice)
 		closedir(rep);
     }
 }
+*/
