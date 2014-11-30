@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 17:10:19 by avallete          #+#    #+#             */
-/*   Updated: 2014/11/29 19:10:53 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/11/30 16:42:25 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,12 @@ void print_linkpath(char *filename, off_t size)
 {
 	char *linkpath;
 
+	linkpath = NULL;
 	ft_putstr(" -> ");
 	linkpath = (char*)malloc(sizeof(char) * size);
-	ft_bzero(linkpath, size);
+	ft_bzero(linkpath, (sizeof(char) * size));
 	readlink(filename, linkpath, size);
 	ft_putstr(linkpath);
+	free(linkpath);
+	linkpath = NULL;
 }
