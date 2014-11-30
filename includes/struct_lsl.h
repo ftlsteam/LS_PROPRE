@@ -20,6 +20,7 @@ typedef struct		s_lltree
 	t_llstat		stats;
 }					t_lltree;
 char			ft_oldtime(int32_t timefile);
+unsigned char 	take_typefile(mode_t c);
 void			test_sizeinfos(t_llstat *stats, size_t *infos, size_t block, char *choice);
 void			takestats(struct stat *statsbase, t_llstat *statstree);
 size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice);

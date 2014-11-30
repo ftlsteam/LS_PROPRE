@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 16:44:53 by avallete          #+#    #+#             */
-/*   Updated: 2014/11/30 16:09:44 by avallete         ###   ########.fr       */
+/*   Updated: 2014/11/30 18:34:23 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ void print_files_args(t_btree *args, char reverse)
 		if (args->left)
 			print_files_args(args->left, reverse);
 		if (args->file_type == 0)
-		{
 			ft_putendl(args->content);
-		}
 		if (args->right)
 			print_files_args(args->right, reverse);
 	}
@@ -103,24 +101,23 @@ void	call_setup(t_btree *args, char *choice)
 void argument_sort(const char **argv, int *tab, char *choice)
 {
 	int arg;
+	struct stat sstruct;
 	t_btree *args;
 
 	args = NULL;
 	while (tab[0] < tab[1])
 	{
-		if ((arg = open(argv[tab[0]], O_RDONLY)))
-		{
-			if ((arg = open(argv[tab[0]], O_DIRECTORY) > 0))
-				btree_insert_data(&args, (char*)argv[tab[0]], 4);
-			else
-				btree_insert_data(&args, (char*)argv[tab[0]], 0);
-		}
+		if ((arg = lstat(argv[tab[0]], &sstruct)) == 0)
+			btree_insert_data(&args, (char*)argv[tab[0]], (take_typefile(sstruct.st_mode)));
 		else
 			print_error((char*)argv[tab[0]]);
 		tab[0]++;
 	}
-	print_files_args(args, choice[3]);
-	call_setup(args, choice);
+	if (args)
+	{
+		print_files_args(args, choice[3]);
+		call_setup(args, choice);
+	}	
 }
 
 int main(int argc, char const **argv)
