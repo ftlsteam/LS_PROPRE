@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/24 19:01:00 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/30 15:39:33 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/11/30 18:45:37 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,34 @@ void			reverse(char *argv, t_btree **tree, char *options,\
 
 void			recurs(char *pathname, char *options)
 {
-	ft_putchar('\n');
-	ft_putstr(pathname);
-	ft_putendl(":");
+	if (options[2] == 1)
+	{
+		ft_putchar('\n');
+        ft_putstr(pathname);
+        ft_putendl(":");
+	}
+	else if (is_hide(pathname) == 0)
+	{
+		ft_putchar('\n');
+		ft_putstr(pathname);
+		ft_putendl(":");
+	}
 	set_up(pathname, options);
+}
+
+int				is_hide(char *pathname)
+{
+	int			i;
+
+	i = ft_strlen(pathname);
+	if (pathname)
+	{
+		while (pathname[i] != '/')
+		{
+			if (pathname[i] == '.' && pathname[i-1] == '/')
+				return(1);
+			i--;
+		}
+	}
+	return (0);
 }

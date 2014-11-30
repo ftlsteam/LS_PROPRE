@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:55:48 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/30 15:55:13 by avallete         ###   ########.fr       */
+/*   Updated: 2014/11/30 18:47:25 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,18 @@ void		set_up(char *argv, char	*choice)
 				t_btree *tree;
 
 				tree = NULL;
-				ls_read(&tree, argv);
-				btree_print(tree, choice);
+				if (choice[2] == 1)
+				{
+					ls_read(&tree, argv);
+					btree_print(tree, choice);
+				}
+				else if (is_hide(argv) == 0)
+				{
+					ls_read(&tree, argv);
+                    btree_print(tree, choice);
+				}
+				else
+					ls_read(&tree, argv);
 				ls_grep_dir(argv, &tree, choice);
 			}
 			if (choice[1])
