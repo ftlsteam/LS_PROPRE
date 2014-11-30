@@ -5,103 +5,63 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/26 16:51:32 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/29 19:04:22 by acouliba         ###   ########.fr       */
+/*   Created: 2014/11/30 14:16:13 by acouliba          #+#    #+#             */
+/*   Updated: 2014/11/30 15:23:03 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include "libft.h"
-#include "test_btree.h"
 
-void            ls_grep_dir_time(char *argv, t_time **tree, char *options)
+void			ls_grep_dir_time(char *argv, t_time **tree, char *options)
 {
-    t_time *root;
-    char *pathname;
+	char		*pathname;
 
 	if (*tree)
 	{
-		root = *tree;
-		pathname = ft_strjoin(argv, "/");
-		pathname = ft_strjoin(pathname, root->content);
-		if (!(options[3]))
-		{
-			if (root->left)
-				ls_grep_dir_time(argv, &root->left, options);
-			if (root->file_type == 4 && ft_strcmp("..", root->content) != 0 && ft_strcmp(".", root->content) != 0)
-			{
-				ft_putchar('\n');
-				ft_putstr(pathname);
-				ft_putendl(":");
-				set_up(pathname, options);
-			}
-				if (root->right)
-				ls_grep_dir_time(argv, &root->right, options);
-		}
+		if (!(check_slash(argv)))
+			pathname = ft_strjoin(argv, "/");
 		else
-		{
-			if (root->right)
-				ls_grep_dir_time(argv, &root->right, options);
-			if (root->file_type == 4 && ft_strcmp("..", root->content) != 0 && ft_strcmp(".", root->content) != 0)
-				set_up(pathname, options);
-			if (root->left)
-				ls_grep_dir_time(argv, &root->left, options);
-		}
+			pathname = ft_strdup(argv);
+		pathname = ft_strjoin(pathname, (*tree)->content);
+		if (!(options[3]))
+			normal_time(argv, tree, options, pathname);
+		else
+			reverse_time(argv, tree, options, pathname);
 	}
 }
-/*
-void            ls_read_rec_time(char *pathname, char *choice)
-{
-    struct dirent *file;
-    DIR     *rep;
 
-    ft_putchar('\n');
-	ft_putstr(pathname);
-	ft_putendl(":");
-    pathname = ft_strjoin(pathname, "/");
-    if((rep = opendir(pathname)) != NULL)
-    {
-		show_dir_time(pathname, choice);
-		while ((file = readdir(rep)) != NULL )
-        {
-            if (file->d_type == 4 && ft_strcmp(".", file->d_name) != 0 && ft_strcmp("..", file->d_name) != 0)
-			  set_up(ft_strjoin(pathname, file->d_name), choice);
-//			btree_insert_data_time
-		}
-		closedir(rep);
-    }
-	else
-		print_error(pathname);
-	free(pathname);
+void			normal_time(char *argv, t_time **tree, char *options,\
+							char *pathname)
+{
+	t_time		*root;
+
+	root = *tree;
+	if (root)
+	{
+		if (root->left)
+			ls_grep_dir_time(argv, &root->left, options);
+		if (root->file_type == 4 && ft_strcmp("..", root->content) != 0\
+			&& ft_strcmp(".", root->content) != 0)
+			recurs(pathname, options);
+		if (root->right)
+			ls_grep_dir_time(argv, &root->right, options);
+	}
 }
 
-void        show_dir_time(char *pathname, char *choice)
+void			reverse_time(char *argv, t_time **tree, char *options,\
+							char *pathname)
 {
-    struct dirent *file;
-    t_time     *tree;
-    struct stat *stats_struct;
-    DIR     *rep;
-    int     stats;
-	char	*filepathname;
+	t_time		*root;
 
-	tree = NULL;
-    if ((stats_struct = (struct stat*)malloc(sizeof(struct stat))))
-    {
-        if ((rep = opendir(pathname)))
-		{
-			while((file = readdir(rep)))
-			{
-				filepathname = ft_strjoin(pathname, file->d_name);
-				stats = lstat(filepathname, stats_struct);
-				if (stats != -1)
-					btree_insert_data_time(&tree, file->d_name, stats_struct->st_mtimespec.tv_sec, file->d_type);
-			}
-			btree_print_time(tree, choice);
-		}
-		free(filepathname);
-		free(stats_struct);
-		free_tree_time(tree);
-		closedir(rep);
-    }
+	root = *tree;
+	if (root)
+	{
+		if (root->right)
+			ls_grep_dir_time(argv, &root->right, options);
+		if (root->file_type == 4 && ft_strcmp("..", root->content) != 0\
+			&& ft_strcmp(".", root->content) != 0)
+			recurs(pathname, options);
+		if (root->left)
+			ls_grep_dir_time(argv, &root->left, options);
+	}
 }
-*/

@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/24 19:01:00 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/29 19:06:50 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/11/30 15:39:33 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,79 +29,62 @@ int				check_slash(char *str)
 
 void			ls_grep_dir(char *argv, t_btree **tree, char *options)
 {
-	t_btree *root;
-	char *pathname;
+	char		*pathname;
 
 	if (*tree)
 	{
-		root = *tree;
 		if (!(check_slash(argv)))
 			pathname = ft_strjoin(argv, "/");
 		else
 			pathname = ft_strdup(argv);
-		pathname = ft_strjoin(pathname, root->content);
-
+		pathname = ft_strjoin(pathname, (*tree)->content);
 		if (!(options[3]))
-		{
-			if (root->left)
-				ls_grep_dir(argv, &root->left, options);
-			if (root->file_type == 4 && ft_strcmp("..", root->content) != 0 && ft_strcmp(".", root->content) != 0)
-				set_up(pathname, options);
-			if (root->right)
-				ls_grep_dir(argv, &root->right, options);
-		}
+			normal(argv, tree, options, pathname);
 		else
-		{
-			if (root->right)
-				ls_grep_dir(argv, &root->right, options);
-			if (root->file_type == 4 && ft_strcmp("..", root->content) != 0)
-				set_up(pathname, options);
-			if (root->left)
-				ls_grep_dir(argv, &root->left, options);
-		}
-		free(pathname);
+			reverse(argv, tree, options, pathname);
 	}
 }
-/*
-void            ls_read_rec(char *pathname, char *choice)
-{
-	struct dirent *file;
-	DIR     *rep;
 
+void			normal(char *argv, t_btree **tree, char *options,\
+					char *pathname)
+{
+	t_btree		*root;
+
+	root = *tree;
+	if (root)
+	{
+		if (root->left)
+			ls_grep_dir(argv, &root->left, options);
+		if (root->file_type == 4 && ft_strcmp("..", root->content) != 0\
+			&& ft_strcmp(".", root->content) != 0)
+			recurs(pathname, options);
+		if (root->right)
+			ls_grep_dir(argv, &root->right, options);
+	}
+}
+
+void			reverse(char *argv, t_btree **tree, char *options,\
+						char *pathname)
+{
+	t_btree		*root;
+
+	root = *tree;
+	if (root)
+	{
+		if (root->right)
+			ls_grep_dir(argv, &root->right, options);
+		if (root->file_type == 4 && ft_strcmp("..", root->content) != 0\
+			&& ft_strcmp(".", root->content) != 0)
+			recurs(pathname, options);
+		if (root->left)
+			ls_grep_dir(argv, &root->left, options);
+	}
+}
+
+void			recurs(char *pathname, char *options)
+{
 	ft_putchar('\n');
 	ft_putstr(pathname);
 	ft_putendl(":");
-	if (!(check_slash(pathname)))
-		pathname = ft_strjoin(pathname, "/");
-	if((rep = opendir(pathname)) != NULL)
-	{
-		show_dir(pathname, choice);
-		while ((file = readdir(rep)) != NULL)
-		{
-			if (file->d_type == 4 && ft_strcmp(".", file->d_name) != 0 && ft_strcmp("..", file->d_name) != 0)
-				ls_read_rec(ft_strjoin(pathname, file->d_name), choice);
-		}
-		closedir(rep);
-	}
-	else
-		print_error(pathname);
-	
-	free(pathname);
+	set_up(pathname, options);
 }
-
-void		show_dir(char *pathname, char *choice)
-{
-	struct dirent *file;
-	DIR *rep;
-	t_btree		*tree;
-
-	if ((rep = opendir(pathname)) != NULL)
-	{
-		while ((file = readdir(rep)) != NULL)
-			btree_insert_data(&tree, file->d_name, file->d_type);
-		btree_print(tree, choice);
-		free_tree(tree);
-		closedir(rep);
-	}
-}
-*/
