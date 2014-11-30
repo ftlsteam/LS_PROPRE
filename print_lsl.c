@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/21 14:20:33 by avallete          #+#    #+#             */
-/*   Updated: 2014/11/29 19:15:44 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/11/30 14:18:22 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ void print_lsl(t_llstat *stats, size_t *infos, char option, char *pathname)
 	file_pathname = NULL;
 	if (!(check_slash(pathname)))
 		file_pathname= ft_strjoin(pathname, "/");
-	if (infos[5])
+	if (infos[6])
 	{
 		print_total(infos[5]);
 		infos[5] = 0;
+		infos[6] = 0;
 	}
 	if (((!(option)) && (stats->filename[0] != '.')) || option)
 	{

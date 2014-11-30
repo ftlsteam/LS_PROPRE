@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:15:25 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/29 18:51:41 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/11/30 14:22:25 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 	struct stat		*stats_struct;
 	t_llstat		statsfile;
 	int				stats;
-	static size_t	keep_infos[5] = {0};
+	static size_t	keep_infos[6] = {0};
 	char			*filepathname;
 
 	if((rep = opendir(pathname)))
