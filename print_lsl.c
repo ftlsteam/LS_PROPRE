@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/21 14:20:33 by avallete          #+#    #+#             */
-/*   Updated: 2014/12/01 14:47:14 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 15:10:42 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ void print_lsl(t_llstat *stats, size_t *infos, char option, char *pathname)
 		file_pathname = ft_strjoin(pathname, "/");
 	else
 		file_pathname = pathname;
-	if (infos[6])
+	if (infos[6] && stats->filename[0] != '.')
 	{
-		if (((!(option)) && (stats->filename[0] != '.')) || option)
-			print_total(infos[5]);
+		print_total(infos[5]);
+		infos[5] = 0;
 		infos[6] = 0;
 	}
-	infos[5] = 0;
 	if (((!(option)) && (stats->filename[0] != '.')) || option)
 	{
 		print_typefile(stats->filetype);
