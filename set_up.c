@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:55:48 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/30 18:47:25 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/12/01 14:27:59 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void		set_up(char *argv, char	*choice)
 			ltree = NULL;
 			infos = ls_read_stat(&ltree, argv, choice);
 			ltree_print(ltree, infos, choice, argv);
+			ft_bzero(infos, 6);
 		}
 	}
 	else
@@ -74,9 +75,19 @@ void		set_up(char *argv, char	*choice)
 				t_time *time;
 
 				time = NULL;
-				ls_read_time(&time, argv);
-				btree_print_time(time, choice);
-				ls_grep_dir_time(argv, &time, choice);
+				if (choice[2] == 1)
+				{
+                    ls_read_time(&time, argv);
+                    btree_print_time(time, choice);
+				}
+                else if (is_hide(argv) == 0)
+				{
+                    ls_read_time(&time, argv);
+                    btree_print_time(time, choice);
+                }
+                else
+                    ls_read_time(&time, argv);
+                ls_grep_dir_time(argv, &time, choice);
 			}
 		}
 		else if (choice[0])
@@ -85,8 +96,20 @@ void		set_up(char *argv, char	*choice)
 			size_t			*infos;
 
 			ltree = NULL;
-			infos = ls_read_stat(&ltree, argv, choice);
-			ltree_print(ltree, infos, choice, argv);
+			if (choice[2] == 1)
+			{
+				infos = ls_read_stat(&ltree, argv, choice);
+				ltree_print(ltree, infos, choice, argv);
+			}
+			else if (is_hide(argv) == 0)
+			{
+				infos = ls_read_stat(&ltree, argv, choice);
+				ltree_print(ltree, infos, choice, argv);
+				ft_bzero(infos, 6);
+			}
+			else
+				infos = ls_read_stat(&ltree, argv, choice);
+			ft_bzero(infos, 6);
 			ls_grep_dir_stat(argv, &ltree, choice);
 			ft_bzero(infos, 6);
 		}
