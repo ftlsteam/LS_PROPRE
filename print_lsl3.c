@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 17:12:28 by avallete          #+#    #+#             */
-/*   Updated: 2014/11/25 17:12:44 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 18:47:51 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void print_size(off_t size, size_t maxcol)
 {
 	size_t i;
 
-	ft_putchar(' ');
-	i = (maxcol - ft_nbrlen(size));
+	i = (maxcol - (ft_nbrlen(size) - 1));
 	while(i--)
 		ft_putchar(' ');
 	ft_putnbr(size);

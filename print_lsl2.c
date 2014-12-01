@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 17:10:19 by avallete          #+#    #+#             */
-/*   Updated: 2014/11/30 18:50:38 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 18:52:23 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ void print_group(char *groupname, size_t maxcol)
 	size_t i;
 
 	i = (maxcol - ft_strlen(groupname)) + 1;
+	ft_putstr(groupname);
 	while (i--)
 		ft_putchar(' ');
-	ft_putstr(groupname);
-	ft_putchar(' ');
 }
 
 void print_owner(char *owner, size_t maxcol)
@@ -31,9 +30,10 @@ void print_owner(char *owner, size_t maxcol)
 	size_t i;
 
 	i = maxcol - ft_strlen(owner);
+	ft_putstr(owner);
 	while (i--)
 		ft_putchar(' ');
-	ft_putstr(owner);
+	ft_putchar(' ');
 	ft_putchar(' ');
 }
 
@@ -91,8 +91,8 @@ void print_linkpath(char *filename, off_t size)
 
 	linkpath = NULL;
 	ft_putstr(" -> ");
-	linkpath = (char*)malloc(sizeof(char) * size);
-	ft_bzero(linkpath, (sizeof(char) * size));
+	linkpath = (char*)malloc(sizeof(char) * size + 1);
+	ft_bzero(linkpath, (sizeof(char) * size + 1));
 	readlink(filename, linkpath, size);
 	ft_putstr(linkpath);
 	free(linkpath);

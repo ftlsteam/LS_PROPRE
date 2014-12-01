@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:55:48 by acouliba          #+#    #+#             */
-/*   Updated: 2014/12/01 14:50:25 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 18:21:41 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void		set_up(char *argv, char	*choice)
 			{
 				infos = ls_read_stat(&ltree, argv, choice);
 				ltree_print(ltree, infos, choice, argv);
+				ft_bzero(infos, 6);
 			}
 			else if (is_hide(argv) == 0)
 			{
@@ -109,8 +110,10 @@ void		set_up(char *argv, char	*choice)
 				ft_bzero(infos, 6);
 			}
 			else
-			ls_read_stat(&ltree, argv, choice);
+			infos = ls_read_stat(&ltree, argv, choice);
+			ft_bzero(infos, 6);
 			ls_grep_dir_stat(argv, &ltree, choice);
+			ft_bzero(infos, 6);
 		}
 	}
 }
