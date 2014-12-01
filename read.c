@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:15:25 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/30 17:54:52 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 14:30:31 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ void			ls_read_time(t_time **tree, char *pathname)
 	}
 }
 
+unsigned int major_ex(dev_t dev)
+{
+	dev = dev >> 8;
+	return ((unsigned int)dev);
+}
+
+unsigned int minor_ex(dev_t dev)
+{
+
+	dev = dev >> ((dev) & ((1U << 20) - 1));
+	return (dev);
+}
+
 size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 {
 	struct dirent	*file;
@@ -91,6 +104,8 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 				filepathname = ft_strjoin(pathname, file->d_name);
 				if (((stats = lstat(filepathname, stats_struct))) != -1)
 				{
+		//		printf("\nfilepathname %s\nst_dev %d\n", filepathname, stats_struct->st_dev);
+		//			printf("%u, %u\n", minor_ex(stats_struct->st_dev), major_ex(stats_struct->st_dev));
 					takestats(stats_struct, &statsfile);
 					test_sizeinfos(&statsfile, keep_infos, stats_struct->st_blocks, choice);
 					if (!(choice[1]))

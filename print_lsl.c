@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/21 14:20:33 by avallete          #+#    #+#             */
-/*   Updated: 2014/11/30 16:42:13 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 14:47:14 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ void print_lsl(t_llstat *stats, size_t *infos, char option, char *pathname)
 		file_pathname = pathname;
 	if (infos[6])
 	{
-		print_total(infos[5]);
-		infos[5] = 0;
+		if (((!(option)) && (stats->filename[0] != '.')) || option)
+			print_total(infos[5]);
 		infos[6] = 0;
 	}
+	infos[5] = 0;
 	if (((!(option)) && (stats->filename[0] != '.')) || option)
 	{
 		print_typefile(stats->filetype);
@@ -48,7 +49,10 @@ void print_lsl(t_llstat *stats, size_t *infos, char option, char *pathname)
 		print_owner(stats->owner, infos[1]);
 		if (stats->group)
 		print_group(stats->group, infos[2]);
-		print_size(stats->size, infos[3]);
+		if (stats->filetype != 2 && stats->filetype != 6)
+			print_size(stats->size, infos[3]);
+//		else
+//			print_devices(stats->devices, infos[3]);
 		print_time(stats->date, infos[4]);
 		ft_putstr(stats->filename);
 		file_pathname = ft_strjoin(file_pathname, stats->filename);
