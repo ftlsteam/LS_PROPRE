@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 16:44:53 by avallete          #+#    #+#             */
-/*   Updated: 2014/11/30 18:34:23 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 15:46:27 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,24 @@ void argument_sort(const char **argv, int *tab, char *choice)
 	}	
 }
 
+int verify_argv(int argc, char const **argv)
+{
+	int i;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (!(argv[i]) || argv[i][0] == '\0')
+		{
+			errno = ENOENT;
+			print_error("fts_open");
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int main(int argc, char const **argv)
 {
 	void (*f)(char*, char);
@@ -127,23 +145,26 @@ int main(int argc, char const **argv)
 	char choice[5];
 	int  tab[2];
 
-	f = &ft_arg;
-	ft_bzero(choice, 5);
-	if (argc == 1)
-		set_up(".", choice);
-	if (argc > 1)
+	if (verify_argv(argc, argv))
 	{
-		i = ft_arguments(argc, argv, choice, f);
-		if (i >= argc)
-			set_up((char*)".", choice);
-		else
+		f = &ft_arg;
+		ft_bzero(choice, 5);
+		if (argc == 1)
+			set_up(".", choice);
+		if (argc > 1)
 		{
-			tab[0] = i;
-			tab[1] = argc;
-			if (argc > i + 1)
-				argument_sort(argv, tab, choice);
+			i = ft_arguments(argc, argv, choice, f);
+			if (i >= argc)
+				set_up((char*)".", choice);
 			else
-				set_up((char*)argv[i], choice);
+			{
+				tab[0] = i;
+				tab[1] = argc;
+				if (argc > i + 1)
+					argument_sort(argv, tab, choice);
+				else
+					set_up((char*)argv[i], choice);
+			}
 		}
 	}
 	return 0;
