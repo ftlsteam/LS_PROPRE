@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/21 14:20:33 by avallete          #+#    #+#             */
-/*   Updated: 2014/12/01 18:16:35 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 19:29:36 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ void print_lsl(t_llstat *stats, size_t *infos, char option, char *pathname)
 		file_pathname = ft_strjoin(pathname, "/");
 	else
 		file_pathname = pathname;
-	if (infos[6])
-	{
-		print_total(infos[5]);
-		infos[5] = 0;
-		infos[6] = 0;
-	}
 	if (((!(option)) && (stats->filename[0] != '.')) || option)
 	{
+		if (infos[6])
+		{
+			print_total(infos[5]);
+			infos[6] = 0;
+		}
+		infos[5] = 0;
 		print_typefile(stats->filetype);
 		print_rights(stats->accesright);
 		print_hlink(stats->nbhlink, infos[0]);
@@ -50,8 +50,8 @@ void print_lsl(t_llstat *stats, size_t *infos, char option, char *pathname)
 			print_group(stats->group, infos[2]);
 		if (stats->filetype != 2 && stats->filetype != 6)
 			print_size(stats->size, infos[3]);
-//		else
-//			print_devices(stats->devices, infos[3]);
+		//		else
+		//			print_devices(stats->devices, infos[3]);
 		print_time(stats->date, infos[4]);
 		ft_putstr(stats->filename);
 		file_pathname = ft_strjoin(file_pathname, stats->filename);
