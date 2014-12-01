@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:15:25 by acouliba          #+#    #+#             */
-/*   Updated: 2014/12/01 18:08:04 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/12/01 18:18:13 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,7 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 				filepathname = ft_strjoin(pathname, file->d_name);
 				if (((stats = lstat(filepathname, stats_struct))) != -1)
 				{
-					printf("Filepathname : %s; Device number (st_rdev): %d  major=%ld; minor=%ld\n",filepathname, test, (long) MAJOR(stats_struct->st_rdev), (long) MINOR(stats_struct->st_rdev));
-//				printf("\nfilepathname %s\nst_dev %d\n", filepathname, test);
-//					printf("%u, %u\n", minor_ex(stats_struct->st_dev), major_ex(stats_struct->st_dev));
+					printf("Filepathname : %s; Device number (st_rdev): %d  major=%d; minor=%d\n",filepathname, test, (int) MAJOR(stats_struct->st_rdev), (int) MINOR(stats_struct->st_rdev));
 					takestats(stats_struct, &statsfile);
 					test_sizeinfos(&statsfile, keep_infos, stats_struct->st_blocks, choice);
 					if (!(choice[1]))
