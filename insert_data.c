@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/16 18:11:59 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/27 19:47:17 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 15:25:32 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,15 @@ void	ltree_insert_data_time(t_lltree **tree, t_llstat data)
 			else
 				root->left = create_node_stat(data);
 		}
-		else
+		else if (data.date < root->stats.date)
 		{
 			if (root->right)
 				ltree_insert_data_time(&root->right, data);
 			else
 				root->right = create_node_stat(data);
 		}
+		else
+			ltree_insert_data(tree, data);
 	}
 	else
 		*tree = create_node_stat(data);
@@ -106,13 +108,15 @@ void    btree_insert_data_time(t_time **tree, char *data, unsigned int time, uns
 			else
 				root->left = create_node_time(data, time, type);
 		}
-		else
+		else if (time < root->time)
 		{
 			if (root->right)
 				btree_insert_data_time(&root->right, data, time, type);
 			else
 				root->right = create_node_time(data, time, type);
 		}
+		else
+			btree_insert_data_alpha(tree, data, type, time);
 	}
 	else
 		*tree = create_node_time(data, time, type);
