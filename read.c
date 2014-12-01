@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:15:25 by acouliba          #+#    #+#             */
-/*   Updated: 2014/12/01 14:30:31 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 18:08:04 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,20 @@ void			ls_read_time(t_time **tree, char *pathname)
 		free(stats_struct);
 	}
 }
-
+/*
 unsigned int major_ex(dev_t dev)
 {
-	dev = dev >> 8;
+	MAJOR(dev);
 	return ((unsigned int)dev);
 }
 
 unsigned int minor_ex(dev_t dev)
 {
 
-	dev = dev >> ((dev) & ((1U << 20) - 1));
+	MINOR(dev);
 	return (dev);
 }
-
+*/
 size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 {
 	struct dirent	*file;
@@ -90,6 +90,7 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 	int				stats;
 	static size_t	keep_infos[6] = {0};
 	char			*filepathname;
+	unsigned int	test;
 
 	if((rep = opendir(pathname)))
 	{
@@ -104,8 +105,9 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 				filepathname = ft_strjoin(pathname, file->d_name);
 				if (((stats = lstat(filepathname, stats_struct))) != -1)
 				{
-		//		printf("\nfilepathname %s\nst_dev %d\n", filepathname, stats_struct->st_dev);
-		//			printf("%u, %u\n", minor_ex(stats_struct->st_dev), major_ex(stats_struct->st_dev));
+					printf("Filepathname : %s; Device number (st_rdev): %d  major=%ld; minor=%ld\n",filepathname, test, (long) MAJOR(stats_struct->st_rdev), (long) MINOR(stats_struct->st_rdev));
+//				printf("\nfilepathname %s\nst_dev %d\n", filepathname, test);
+//					printf("%u, %u\n", minor_ex(stats_struct->st_dev), major_ex(stats_struct->st_dev));
 					takestats(stats_struct, &statsfile);
 					test_sizeinfos(&statsfile, keep_infos, stats_struct->st_blocks, choice);
 					if (!(choice[1]))
