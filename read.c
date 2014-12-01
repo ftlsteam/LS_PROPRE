@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:15:25 by acouliba          #+#    #+#             */
-/*   Updated: 2014/12/01 18:24:13 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 20:02:25 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,9 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 		}
 	}
 	else
-		print_error(pathname);
+	{
+		if ((!(choice[5])) || ((choice[5]) && errno != EACCES))
+			print_error(pathname);
+	}
 	return (keep_infos);
 }

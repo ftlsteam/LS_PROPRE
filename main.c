@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 16:44:53 by avallete          #+#    #+#             */
-/*   Updated: 2014/12/01 15:46:27 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 19:56:48 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ void	free_tree_stat(t_lltree *tree)
 
 void print_error(char *filename)
 {
-	ft_putstr("ls: ");
-	perror(filename);
+	if (filename)
+	{
+		ft_putstr("ls: ");
+		perror(filename);
+	}
 }
 
 void print_files_args(t_btree *args, char reverse)

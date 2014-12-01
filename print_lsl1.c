@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 17:09:20 by avallete          #+#    #+#             */
-/*   Updated: 2014/12/01 18:31:00 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 19:55:36 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void print_groupmod(int st_mode)
 {
 	st_mode & S_IRGRP ? ft_putchar('r') : ft_putchar('-');
 	st_mode & S_IWGRP ? ft_putchar('w') : ft_putchar('-');
-	if (st_mode & S_IXUSR)
+	if (st_mode & S_IXGRP)
 	{
 		if (st_mode & S_ISGID)
 			ft_putchar('s');
 		else
 			ft_putchar('x');
 	}
-	else if (!(st_mode & S_IXUSR))
+	else if (!(st_mode & S_IXGRP))
 	{
 		if (st_mode & S_ISGID)
 			ft_putchar('S');

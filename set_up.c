@@ -6,12 +6,22 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:55:48 by acouliba          #+#    #+#             */
-/*   Updated: 2014/12/01 18:21:41 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/01 19:46:49 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "test_btree.h"
+
+void		initialize_infos(size_t *infos)
+{
+	int i;
+
+	i = 0;
+	while (i++ < 6)
+		infos[i] = 0;
+	infos[0] = 1;
+}
 
 void		set_up(char *argv, char	*choice)
 {
@@ -44,7 +54,7 @@ void		set_up(char *argv, char	*choice)
 			ltree = NULL;
 			infos = ls_read_stat(&ltree, argv, choice);
 			ltree_print(ltree, infos, choice, argv);
-			ft_bzero(infos, 6);
+			initialize_infos(infos);
 		}
 	}
 	else
@@ -101,19 +111,18 @@ void		set_up(char *argv, char	*choice)
 			{
 				infos = ls_read_stat(&ltree, argv, choice);
 				ltree_print(ltree, infos, choice, argv);
-				ft_bzero(infos, 6);
+				initialize_infos(infos);
 			}
 			else if (is_hide(argv) == 0)
 			{
 				infos = ls_read_stat(&ltree, argv, choice);
 				ltree_print(ltree, infos, choice, argv);
-				ft_bzero(infos, 6);
+				initialize_infos(infos);
 			}
 			else
 			infos = ls_read_stat(&ltree, argv, choice);
-			ft_bzero(infos, 6);
+			initialize_infos(infos);
 			ls_grep_dir_stat(argv, &ltree, choice);
-			ft_bzero(infos, 6);
 		}
 	}
 }
