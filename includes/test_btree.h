@@ -18,15 +18,11 @@
 # include <time.h>
 
 /*
-**Macros t_dev--------------------
+**Macros st_rdev--------------------
 */
 
 #define MINORBITS       24
 #define MINORMASK       ((1U << MINORBITS) - 1)
-
-#define MAJOR(dev)      ((unsigned int) ((dev) >> MINORBITS))
-#define MINOR(dev)      ((unsigned int) ((dev) & MINORMASK))
-#define MKDEV(ma,mi)    (((ma) << MINORBITS) | (mi))
 
 /*
  **Structures--------------------
@@ -38,7 +34,6 @@ typedef struct		s_btree
 {
 	char			*content;
 	unsigned char	file_type;
-	char			*dir_path;
 	struct s_btree	*left;
 	struct s_btree	*right;
 }					t_btree;

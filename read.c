@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:15:25 by acouliba          #+#    #+#             */
-/*   Updated: 2014/12/01 20:02:25 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/02 17:20:19 by acouliba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,17 @@ void			ls_read_time(t_time **tree, char *pathname)
 		free(stats_struct);
 	}
 }
-/*
+
 unsigned int major_ex(dev_t dev)
 {
-	MAJOR(dev);
-	return ((unsigned int)dev);
+	return ((unsigned int)((dev) >> MINORBITS));
 }
 
 unsigned int minor_ex(dev_t dev)
 {
-
-	MINOR(dev);
-	return (dev);
+	return ((unsigned int) ((dev) & MINORMASK));
 }
-*/
+
 size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 {
 	struct dirent	*file;
@@ -104,7 +101,7 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 				filepathname = ft_strjoin(pathname, file->d_name);
 				if (((stats = lstat(filepathname, stats_struct))) != -1)
 				{
-//				printf("Filepathname : %s; Device number (st_rdev): %d  major=%d; minor=%d\n",filepathname, stats_struct->st_rdev, (int) MAJOR(stats_struct->st_rdev), (int) MINOR(stats_struct->st_rdev));
+				printf("Filepathname : %s; Device number (st_rdev): %d  major=%u; minor=%d\n",filepathname, stats_struct->st_rdev, major_ex(stats_struct->st_rdev), (int) minor_ex(stats_struct->st_rdev));
 					takestats(stats_struct, &statsfile);
 					test_sizeinfos(&statsfile, keep_infos, stats_struct->st_blocks, choice);
 					if (!(choice[1]))
