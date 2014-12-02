@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:15:25 by acouliba          #+#    #+#             */
-/*   Updated: 2014/12/02 18:33:25 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/02 18:38:38 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void			ls_read_time(t_time **tree, char *pathname)
 	DIR     *rep;
 	int		stats;
 	char			*filepathname;
+	unsigned char type;
 
 	if ((stats_struct = (struct stat*)malloc(sizeof(struct stat))))
 	{
@@ -57,7 +58,10 @@ void			ls_read_time(t_time **tree, char *pathname)
 				filepathname = ft_strjoin(pathname, file->d_name);
 				stats = lstat(filepathname, stats_struct);
 				if (stats != -1)
-					btree_insert_data_time(tree, file->d_name, stats_struct->st_mtimespec.tv_sec, file->d_type);
+				{
+					type = take_typefile(stats_struct->st_mode);
+					btree_insert_data_time(tree, file->d_name, stats_struct->st_mtimespec.tv_sec, type);
+				}
 				free(filepathname);
 				filepathname = NULL;
 			}
@@ -97,7 +101,6 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 				pathname = ft_strjoin(pathname, "/");
 			while ((file = readdir(rep)))
 			{
-				statsfile.filetype = file->d_type;
 				statsfile.filename = ft_strdup(file->d_name);
 				filepathname = ft_strjoin(pathname, file->d_name);
 				if (((stats = lstat(filepathname, stats_struct))) != -1)

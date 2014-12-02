@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/21 14:20:33 by avallete          #+#    #+#             */
-/*   Updated: 2014/12/02 17:47:39 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/02 18:48:54 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ void print_lsl(t_llstat *stats, size_t *infos, char option, char *pathname)
 				free(stats->filename);
 				stats->filename = NULL;
 			}
+			free(stats->owner);
+			free(stats->group);
+			stats->owner = NULL;
+			stats->group = NULL;
 		}
 	}
 }

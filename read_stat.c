@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 17:06:49 by avallete          #+#    #+#             */
-/*   Updated: 2014/12/02 18:32:39 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/02 18:45:56 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,17 @@ unsigned char take_typefile(mode_t c)
 
 void			takestats(struct stat *statsbase, t_llstat *statstree)
 {
+	statstree->filetype = take_typefile(statsbase->st_mode);
 	statstree->accesright = statsbase->st_mode;
 	statstree->nbhlink = statsbase->st_nlink;
 	if (!(getpwuid(statsbase->st_uid)))
 		statstree->owner = ft_itoa(statsbase->st_uid);
 	else
-		statstree->owner = (getpwuid(statsbase->st_uid)->pw_name);
+		statstree->owner = ft_strdup(getpwuid(statsbase->st_uid)->pw_name);
 	if (!(getgrgid(statsbase->st_gid)))
 		statstree->group = ft_itoa(statsbase->st_gid);
 	else
-		statstree->group = (getgrgid(statsbase->st_gid)->gr_name);
+		statstree->group = ft_strdup(getgrgid(statsbase->st_gid)->gr_name);
 	statstree->size = statsbase->st_size;
 	statstree->date = statsbase->st_mtimespec.tv_sec;
 }
