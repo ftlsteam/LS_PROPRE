@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/21 14:20:33 by avallete          #+#    #+#             */
-/*   Updated: 2014/12/01 19:29:36 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/02 17:47:39 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,13 @@ void print_lsl(t_llstat *stats, size_t *infos, char option, char *pathname)
 		ft_putchar('\n');
 		if (file_pathname)
 			free(file_pathname);
+		if (stats->filename)
+		{
+			if (stats->filetype != 4)
+			{
+				free(stats->filename);
+				stats->filename = NULL;
+			}
+		}
 	}
 }

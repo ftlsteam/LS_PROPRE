@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 16:48:17 by acouliba          #+#    #+#             */
-/*   Updated: 2014/11/30 15:35:55 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/12/02 17:27:56 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void			normal_stat(char *argv, t_lltree **tree, char *options,\
 		if (root->right)
 			ls_grep_dir_stat(argv, &root->right, options);
 	}
+//	free(pathname);
 }
 
 void			reverse_stat(char *argv, t_lltree **tree, char *options,\

@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/18 17:08:08 by acouliba          #+#    #+#             */
-/*   Updated: 2014/12/01 19:32:40 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/02 17:39:42 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ void    btree_print(t_btree *root, char *options)
 			if (root->left)
 				btree_print(root->left, options);
 			ft_printls(root->content, options[2]);
+			if (root->content)
+			{
+				if (root->file_type != 4)
+				{
+					free(root->content);
+					root->content = NULL;
+				}
+			}
 			if (root->right)
 				btree_print(root->right, options);
 		}
@@ -52,6 +60,14 @@ void    btree_print(t_btree *root, char *options)
 			if (root->right)
 				btree_print(root->right, options);
 			ft_printls(root->content, options[2]);
+			if (root->content)
+			{
+				if (root->file_type != 4)
+				{
+					free(root->content);
+					root->content = NULL;
+				}
+			}
 			if (root->left)
 				btree_print(root->left, options);
 		}
@@ -69,7 +85,7 @@ void    ltree_print(t_lltree *root, size_t *infos, char *options, char *pathname
 			print_lsl(&root->stats, infos, options[2], pathname);
 			if (root->right)
 				ltree_print(root->right, infos, options, pathname);
-	}
+		}
 		else
 		{
 			if (root->right)

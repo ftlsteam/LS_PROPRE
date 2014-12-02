@@ -72,6 +72,7 @@ void		ls_grep_dir_time(char *argv, t_time **tree, char *options);
 void		ls_grep_dir_stat(char *argv, t_lltree **tree, char *options);
 void		recurs(char *pathname, char *options);
 int			is_hide(char *pathname);
+unsigned char take_typefile(mode_t c);
 /*
 **Recursives---------
 */

@@ -6,7 +6,7 @@
 /*   By: avallete <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/25 17:10:19 by avallete          #+#    #+#             */
-/*   Updated: 2014/12/01 18:52:23 by avallete         ###   ########.fr       */
+/*   Updated: 2014/12/02 18:25:53 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,6 @@ void print_hlink(int nb, size_t maxcol)
 		ft_putchar(' ');
 	ft_putnbr(nb);
 	ft_putchar(' ');
-}
-
-unsigned char take_typefile(mode_t c)
-{
-	if (S_ISREG(c))
-		return (0);
-	if (S_ISDIR(c))
-		return (4);
-	if (S_ISLNK(c))
-		return (10);
-	if (S_ISBLK(c))
-		return (6);
-	if (S_ISFIFO(c))
-		return (1);
-	if (S_ISSOCK(c))
-		return (12);
-	if (S_ISCHR(c))
-		return (2);
-	return (14);
 }
 
 void print_typefile(unsigned char type)

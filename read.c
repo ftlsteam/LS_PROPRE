@@ -6,7 +6,7 @@
 /*   By: acouliba <acouliba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 15:15:25 by acouliba          #+#    #+#             */
-/*   Updated: 2014/12/02 17:20:19 by acouliba         ###   ########.fr       */
+/*   Updated: 2014/12/02 18:33:25 by avallete         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void            ls_read(t_btree **tree, char *pathname)
 			btree_insert_data(tree, file->d_name, file->d_type);
 		}
 		free(pathname);
+		pathname = NULL;
 		closedir(rep);
 	}
 	else
@@ -101,7 +102,7 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 				filepathname = ft_strjoin(pathname, file->d_name);
 				if (((stats = lstat(filepathname, stats_struct))) != -1)
 				{
-				printf("Filepathname : %s; Device number (st_rdev): %d  major=%u; minor=%d\n",filepathname, stats_struct->st_rdev, major_ex(stats_struct->st_rdev), (int) minor_ex(stats_struct->st_rdev));
+//				printf("Filepathname : %s; Device number (st_rdev): %d  major=%u; minor=%d\n",filepathname, stats_struct->st_rdev, major_ex(stats_struct->st_rdev), (int) minor_ex(stats_struct->st_rdev));
 					takestats(stats_struct, &statsfile);
 					test_sizeinfos(&statsfile, keep_infos, stats_struct->st_blocks, choice);
 					if (!(choice[1]))
@@ -114,6 +115,7 @@ size_t          *ls_read_stat(t_lltree **tree, char *pathname, char *choice)
 			}
 			closedir(rep);
 			free(stats_struct);
+			stats_struct = NULL;
 		}
 	}
 	else
